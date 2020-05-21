@@ -19,3 +19,5 @@ Download the model
 Put your telegram bot key in the crypto.py file
 
 run /start and (probably get to debugging.)
+
+P.S. It might take 14-16G of ram on a CPU. ~6.5G on a GPU.
