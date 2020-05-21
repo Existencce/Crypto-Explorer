@@ -25,8 +25,6 @@ temp = 1
 mx = 1
 # Virtual USD
 USD = 100
-# Sentiment signal 0.5 default
-SENT = 0.5
 
 # End settings
 mode = False
