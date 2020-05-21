@@ -124,7 +124,7 @@ def interact_model(bot, update, top_p, temperature, mult):
         out = cash.replace("$", "")
         decimal = float(out)
         one = decimal - bitold
-        two = (one / decimal) * 100
+        two = (one / decimal) # * 100
         mon = money * two
         money = mon + money
         decold = money
