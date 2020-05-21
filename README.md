@@ -6,4 +6,16 @@ This is just cheap code that runs gpt-2 that could be buggy. I just was playing 
 It runs a twitter scraper, generates GPT-2 samples on them, then a sentiment analysis which then has a trade signal.
 
 
-This code is probably garbage but feel free to play with it. Use at your own risk.
+This code is probably garbage but feel free to play with it. Use at your own risk.]
+
+
+
+Install tensorflow
+
+Install the requirements
+
+Download the model
+
+Put your telegram bot key in the crypto.py file
+
+run /start and (probably get to debugging.)
