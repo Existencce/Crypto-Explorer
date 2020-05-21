@@ -16,7 +16,7 @@ logger = logging.getLogger(__name__)
 # Console output debug prints
 debug = True
 # Timer trade threshold. Bot isn't the most secure btw.
-timstart = 7200
+timstart = 3600
 # Model logic (trained to usually) 0.7-0.83 work well.
 top = 0.7
 # Temperature (refer to gpt-2 documentation)
@@ -35,9 +35,6 @@ temps = str(temp)
 tpstring = str(top)
 BUY = False
 decold = float(USD)
-csh = bitcoin.USD()
-bit = csh.replace("$", "")
-bitold = float(bit)
 def scrape():
     arr = []
     for tweet in get_tweets('Bitcoin', pages=1):
@@ -121,6 +118,36 @@ def interact_model(bot, update, top_p, temperature, mult):
     global BUY
     global bitold
     global decold
+    
+    if BUY == True:
+        money = decold
+        cash = bitcoin.USD()
+        out = cash.replace("$", "")
+        decimal = float(out)
+        one = decimal - bitold
+        two = (one / decimal) # * 100
+        mon = money * two
+        money = mon + money
+        decold = money
+        bitold = decimal
+        up = str(money)
+        update.message.reply_text('Current money is: ' + up)
+        print(money)
+        print(decold)
+        print(bitold)
+        print("BUY SIGNAL CALC")
+    if BUY == False:
+        money = decold
+        up = str(money)
+        csh = bitcoin.USD()
+        bit = csh.replace("$", "")
+        bitold = float(bit)
+        update.message.reply_text('Current money is: ' + up)
+        print(money)
+        print(decold)        
+        print(bitold)
+        print("HOLD SIGNAL CALC")
+    
     model_name = '1558M'
     nsamples = 1
     batch_size = 1
@@ -219,26 +246,8 @@ def interact_model(bot, update, top_p, temperature, mult):
     sent = str(cache)
     update.message.reply_text('Sentiment of generations are:' + sent)
     rounded = mean(cache)
-    if BUY == True:
-        money = decold
-        cash = bitcoin.USD()
-        out = cash.replace("$", "")
-        decimal = float(out)
-        one = decimal - bitold
-        two = (one / decimal) # * 100
-        mon = money * two
-        money = mon + money
-        decold = money
-        bitold = decimal
-        up = str(money)
-        update.message.reply_text('Current money is: ' + up)
-        print(money)
-        print(decold)
-        print(bitold)
-    if BUY == False:
-        money = decold
-        up = str(money)
-        update.message.reply_text('Current money is: ' + up) 
+    
+    
     if rounded == 0:
         BUY = False
     if rounded > 0:
@@ -246,9 +255,25 @@ def interact_model(bot, update, top_p, temperature, mult):
     if rounded < 0:
         BUY = False
     if BUY == True:
-        update.message.reply_text('Buy Signal')
+        update.message.reply_text('Buy Signal...')
+        csh = bitcoin.USD()
+        bit = csh.replace("$", "")
+        bitold = float(bit)
+        print(money)
+        print(decold)
+        print(bitold)
+        print("BUY SIGNAL")
     if BUY == False:
-        update.message.reply_text('Hold Signal')
+        update.message.reply_text('Hold Signal...')
+        csh = bitcoin.USD()
+        bit = csh.replace("$", "")
+        bitold = float(bit)
+        print(money)
+        print(decold)
+        print(bitold)
+        print("HOLD SIGNAL")
+        
+
 def error(bot, update):
     """Log Errors caused by Updates."""
     logger.warning('Update "%s" caused error "%s"', update)
@@ -258,7 +283,7 @@ def main():
     # Create the Updater and pass it your bot's token.
     # Make sure to set use_context=True to use the new context based callbacks
     # Post version 12 this will no longer be necessary
-    updater = Updater("BOTKEYBOTKEYBOTKEYBOTKEYBOTKEYBOTKEYBOTKEYBOTKEYBOTKEY", use_context=False)
+    updater = Updater("BOTKEYBOTKEYBOTKEYBOTKEYBOTKEYBOTKEYBOTKEY", use_context=False)
     # Get the dispatcher to register handlers
     dp = updater.dispatcher
     # on different commands - answer in Telegram
