@@ -37,7 +37,7 @@ BUY = False
 decold = float(USD)
 csh = bitcoin.USD()
 bit = csh.replace("$", "")
-bitold = float(out)
+bitold = float(bit)
 def scrape():
     arr = []
     for tweet in get_tweets('Bitcoin', pages=1):
