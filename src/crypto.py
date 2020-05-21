@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 from telegram.ext import Updater, CommandHandler, MessageHandler, Filters
 from vaderSentiment.vaderSentiment import SentimentIntensityAnalyzer
+from statistics import mean
 import fire, json, os, string, sys, threading, random, model, sample, encoder, logging, time
 import bitcoin_value as bitcoin
 from twitter_scraper import get_tweets
@@ -210,7 +211,7 @@ def interact_model(bot, update, top_p, temperature, mult):
                     analyzer = SentimentIntensityAnalyzer()
                     vs = analyzer.polarity_scores(meow)
                     data = vs.get('compound')
-                    cache.append([data])
+                    cache.append(data)
                     score = str(vs)
                     update.message.reply_text(meow)
                     if debug == True:
@@ -232,7 +233,7 @@ def interact_model(bot, update, top_p, temperature, mult):
     print(cache)
     sent = str(cache)
     update.message.reply_text('Sentiment of generations are:' + sent)
-    rounded = Average(cache)
+    rounded = mean(cache)
     if rounded == 0:
        BUY = False
     if rounded > 0:
