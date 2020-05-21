@@ -218,7 +218,6 @@ def interact_model(bot, update, top_p, temperature, mult):
     sent = str(cache)
     update.message.reply_text('Sentiment of generations are:' + sent)
     rounded = mean(cache)
-
     if BUY == True:
         money = decold
         cash = bitcoin.USD()
@@ -239,19 +238,16 @@ def interact_model(bot, update, top_p, temperature, mult):
         money = decold
         up = str(money)
         update.message.reply_text('Current money is: ' + up) 
-
- if rounded == 0:
-       BUY = False
+    if rounded == 0:
+        BUY = False
     if rounded > 0:
-       BUY = True
+        BUY = True
     if rounded < 0:
-       BUY = False
+        BUY = False
     if BUY == True:
         update.message.reply_text('Buy Signal')
     if BUY == False:
         update.message.reply_text('Hold Signal')
-
-        
 def error(bot, update):
     """Log Errors caused by Updates."""
     logger.warning('Update "%s" caused error "%s"', update)
