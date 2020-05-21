@@ -36,7 +36,7 @@ tpstring = str(top)
 BUY = False
 decold = float(USD)
 csh = bitcoin.USD()
-bit = cash.replace("$", "")
+bit = csh.replace("$", "")
 bitold = float(out)
 def scrape():
     arr = []
