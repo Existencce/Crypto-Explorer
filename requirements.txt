@@ -1,0 +1,8 @@
+tqdm
+regex
+fire
+python-telegram-bot
+vaderSentiment
+bitcoin_value
+twitter_scraper
+
