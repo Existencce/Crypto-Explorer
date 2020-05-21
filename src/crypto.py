@@ -138,7 +138,6 @@ def interact_model(bot, update, top_p, temperature, mult):
         up = str(money)
         update.message.reply_text('Current money is: ' + up)
     model_name = '1558M'
-    seed = random.randint(1431655765, 2863311530)
     nsamples = 1
     batch_size = 1
     top_k = 0
@@ -171,6 +170,7 @@ def interact_model(bot, update, top_p, temperature, mult):
     update.message.reply_text('Computing for 3 generations...')
     cache = []
     for x in range(0, 3):
+        seed = random.randint(1431655765, 2863311530)
         models_dir = os.path.expanduser(os.path.expandvars(models_dir))
         if batch_size is None:
             batch_size = 1
