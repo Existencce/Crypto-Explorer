@@ -3,6 +3,6 @@ regex
 fire
 python-telegram-bot
 vaderSentiment
-bitcoin_value
+bitcoin-price-api
 twitter_scraper
 
