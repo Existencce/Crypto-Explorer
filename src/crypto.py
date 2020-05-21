@@ -35,8 +35,9 @@ temps = str(temp)
 tpstring = str(top)
 BUY = False
 decold = float(USD)
-bitold = bitcoin.USD()
-
+csh = bitcoin.USD()
+bit = cash.replace("$", "")
+bitold = float(out)
 def scrape():
     arr = []
     for tweet in get_tweets('Bitcoin', pages=1):
@@ -257,7 +258,7 @@ def main():
     # Create the Updater and pass it your bot's token.
     # Make sure to set use_context=True to use the new context based callbacks
     # Post version 12 this will no longer be necessary
-    updater = Updater("BOTKEYBOTKEYBOTKEYBOTKEYBOTKEYBOTKEY", use_context=False)
+    updater = Updater("BOTKEYBOTKEYBOTKEYBOTKEYBOTKEYBOTKEYBOTKEYBOTKEYBOTKEY", use_context=False)
     # Get the dispatcher to register handlers
     dp = updater.dispatcher
     # on different commands - answer in Telegram
