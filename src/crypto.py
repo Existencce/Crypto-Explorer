@@ -166,9 +166,9 @@ def interact_model(bot, update, top_p, temperature, mult):
     if top_p < 0.005:
         top_p = 0.005
 #############################################
-    update.message.reply_text('Computing for 3 generations...')
+    update.message.reply_text('Computing for 4 generations...')
     cache = []
-    for x in range(0, 3):
+    for x in range(0, 4):
         seed = random.randint(1431655765, 2863311530)
         models_dir = os.path.expanduser(os.path.expandvars(models_dir))
         if batch_size is None:
