@@ -308,7 +308,7 @@ def interact_timer(bot, update, top_p, mx, temperature):
         if rounded < 0:
             BUY = False
         if BUY == True:
-            if b = False:
+            if b == False:
                 bitold = float(Bitfinex().get_current_price())
             b = True
             update.message.reply_text('Buy Signal...')
