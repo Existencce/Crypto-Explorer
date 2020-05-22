@@ -34,6 +34,7 @@ running = False
 BUY = False
 dec = float(USD)
 money = float(USD)
+bitold = float(Bitfinex().get_current_price())
 def scrape():
     arr = []
     for tweet in get_tweets('Bitcoin', pages=1):
