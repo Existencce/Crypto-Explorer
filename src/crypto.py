@@ -32,7 +32,7 @@ mode = False
 user = ""
 running = False
 BUY = False
-decold = float(USD)
+dec = float(USD)
 def scrape():
     arr = []
     for tweet in get_tweets('Bitcoin', pages=1):
@@ -182,30 +182,29 @@ def interact_timer(bot, update, top_p, mx, temperature):
     while True:
         global BUY
         global bitold
-        global decold
+        global dec
         global mode
+        global money
         if BUY == True:
-            money = decold
+            money = dec
             decimal = float(Bitfinex().get_current_price())
             one = decimal - bitold
             two = (one / decimal) # * 100
             mon = money * two
             money = mon + money
-            decold = money
             bitold = decimal
             up = str(money)
             update.message.reply_text('Current money is: ' + up)
             print(money)
-            print(decold)
+            print(dec)
             print(bitold)
             print("BUY SIGNAL CALC")
         if BUY == False:
-            money = decold
+            dec = money
             up = str(money)
-            bitold = float(Bitfinex().get_current_price())
             update.message.reply_text('Current money is: ' + up)
             print(money)
-            print(decold)        
+            print(dec)        
             print(bitold)
             print("HOLD SIGNAL CALC")
         model_name = '1558M'
@@ -309,17 +308,19 @@ def interact_timer(bot, update, top_p, mx, temperature):
         if rounded < 0:
             BUY = False
         if BUY == True:
+            if b = False:
+                bitold = float(Bitfinex().get_current_price())
+            b = True
             update.message.reply_text('Buy Signal...')
-            bitold = float(Bitfinex().get_current_price())
             print(money)
-            print(decold)
+            print(dec)
             print(bitold)
             print("BUY SIGNAL")
         if BUY == False:
+            b = False
             update.message.reply_text('Hold Signal...')
-            bitold = float(Bitfinex().get_current_price())
             print(money)
-            print(decold)
+            print(dec)
             print(bitold)
             print("HOLD SIGNAL")
         time.sleep(sleeptime)        
@@ -333,7 +334,7 @@ def main():
     # Create the Updater and pass it your bot's token.
     # Make sure to set use_context=True to use the new context based callbacks
     # Post version 12 this will no longer be necessary
-    updater = Updater("BOTKEYBOTKEYBOTKEYBOTKEYBOTKEYBOTKEY", use_context=False)
+    updater = Updater("BOTKEYBOTKEYBOTKEYBOTKEYBOTKEYBOTKEYBOTKEY", use_context=False)
     # Get the dispatcher to register handlers
     dp = updater.dispatcher
     # on different commands - answer in Telegram
