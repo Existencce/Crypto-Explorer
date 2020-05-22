@@ -196,7 +196,6 @@ def interact_timer(bot, update, top_p, mx, temperature):
             two = (one / decimal) # * 100
             mon = money * two
             money = mon + money
-            bitold = decimal
             up = str(money)
             update.message.reply_text('Current money is: ' + up)
             print(money)
