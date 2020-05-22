@@ -35,6 +35,7 @@ BUY = False
 dec = float(USD)
 money = float(USD)
 bitold = float(Bitfinex().get_current_price())
+b = False
 def scrape():
     arr = []
     for tweet in get_tweets('Bitcoin', pages=1):
@@ -187,6 +188,7 @@ def interact_timer(bot, update, top_p, mx, temperature):
         global dec
         global mode
         global money
+        global b
         if BUY == True:
             money = dec
             decimal = float(Bitfinex().get_current_price())
@@ -336,7 +338,7 @@ def main():
     # Create the Updater and pass it your bot's token.
     # Make sure to set use_context=True to use the new context based callbacks
     # Post version 12 this will no longer be necessary
-    updater = Updater("BOTKEYBOTKEYBOTKEYBOTKEYBOTKEYBOTKEYBOTKEY", use_context=False)
+    updater = Updater("BOTKEYBOTKEYBOTKEYBOTKEYBOTKEYBOTKEY", use_context=False)
     # Get the dispatcher to register handlers
     dp = updater.dispatcher
     # on different commands - answer in Telegram
