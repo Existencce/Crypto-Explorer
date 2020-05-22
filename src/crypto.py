@@ -33,6 +33,7 @@ user = ""
 running = False
 BUY = False
 dec = float(USD)
+money = float(USD)
 def scrape():
     arr = []
     for tweet in get_tweets('Bitcoin', pages=1):
