@@ -15,7 +15,7 @@ logger = logging.getLogger(__name__)
 
 # Console output debug prints
 debug = True
-# Timer trade threshold. Bot isn't the most secure btw.
+# Timer trade threshold / Unused currently (was one hour)
 sleeptime = 3600
 # Model logic (trained to usually) 0.7-0.83 work well.
 top_p = 0.7
@@ -168,8 +168,6 @@ def interact_model(bot, update, top_p, mx, temperature):
     rounded = mean(cache)
     rou = str(rounded)
     update.message.reply_text('Sentiment of generations are:' + rou)
-    if rounded == 0:
-        BUY = False
     if rounded > 0:
         BUY = True
     if rounded < 0:
@@ -189,6 +187,7 @@ def interact_timer(bot, update, top_p, mx, temperature):
         global mode
         global money
         global b
+
         if BUY == True:
             money = dec
             decimal = float(Bitfinex().get_current_price())
@@ -210,6 +209,7 @@ def interact_timer(bot, update, top_p, mx, temperature):
             print(dec)        
             print(bitold)
             print("HOLD SIGNAL CALC")
+
         model_name = '1558M'
         nsamples = 1
         batch_size = 1
@@ -237,9 +237,9 @@ def interact_timer(bot, update, top_p, mx, temperature):
         if top_p < 0.005:
             top_p = 0.005
 #############################################
-        update.message.reply_text('Computing for 4 generations...')
+        update.message.reply_text('Computing for 6 generations...')
         cache = []
-        for x in range(0, 4):
+        for x in range(0, 6):
             seed = random.randint(1431655765, 2863311530)
             models_dir = os.path.expanduser(os.path.expandvars(models_dir))
             if batch_size is None:
@@ -304,11 +304,30 @@ def interact_timer(bot, update, top_p, mx, temperature):
         rounded = mean(cache)
         rou = str(rounded)
         update.message.reply_text('Sentiment of generations are:' + rou)
-        if rounded == 0:
-            BUY = False
-        if rounded > 0:
-            BUY = True
+
+        if BUY == True:
+            money = dec
+            decimal = float(Bitfinex().get_current_price())
+            one = decimal - bitold
+            two = (one / decimal) # * 100
+            mon = money * two
+            money = mon + money
+            up = str(money)
+            print(money)
+            print(dec)
+            print(bitold)
+            print("BUY SIGNAL CALC")
+        if BUY == False:
+            dec = money
+            up = str(money)
+            print(money)
+            print(dec)        
+            print(bitold)
+            print("HOLD SIGNAL CALC")
+
         if rounded < 0:
+            BUY = True
+        if rounded > 0:
             BUY = False
         if BUY == True:
             if b == False:
@@ -325,8 +344,7 @@ def interact_timer(bot, update, top_p, mx, temperature):
             print(money)
             print(dec)
             print(bitold)
-            print("HOLD SIGNAL")
-        time.sleep(sleeptime)        
+            print("HOLD SIGNAL")    
 
 def error(bot, update):
     """Log Errors caused by Updates."""
@@ -337,7 +355,7 @@ def main():
     # Create the Updater and pass it your bot's token.
     # Make sure to set use_context=True to use the new context based callbacks
     # Post version 12 this will no longer be necessary
-    updater = Updater("BOTKEYBOTKEYBOTKEYBOTKEYBOTKEYBOTKEY", use_context=False)
+    updater = Updater("BOTKEYBOTKEYBOTKEYBOTKEYBOTKEY", use_context=False)
     # Get the dispatcher to register handlers
     dp = updater.dispatcher
     # on different commands - answer in Telegram
